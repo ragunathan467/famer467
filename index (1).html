@@ -1,0 +1,2706 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FreshHarvest - Fresh Vegetables, Fruits & Organic Produce</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        :root {
+            --primary-green: #2d5016;
+            --accent-green: #4a7c24;
+            --light-green: #6b9e3f;
+            --cream: #faf8f3;
+            --beige: #f5f1e8;
+            --text-dark: #2c2c2c;
+            --text-light: #666;
+            --border-light: #e8e4dd;
+            --shadow-light: 0 2px 8px rgba(0, 0, 0, 0.08);
+            --shadow-medium: 0 4px 12px rgba(0, 0, 0, 0.12);
+            --radius: 8px;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            background-color: var(--cream);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+
+        /* Header & Navigation */
+        header {
+            background-color: #fff;
+            border-bottom: 1px solid var(--border-light);
+            padding: 1rem 0;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: var(--shadow-light);
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        nav {
+            display: flex;
+            gap: 2rem;
+            align-items: center;
+        }
+
+        nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            font-size: 0.95rem;
+            transition: color 0.2s;
+        }
+
+        nav a:hover {
+            color: var(--accent-green);
+        }
+
+        .header-right {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+        }
+
+        .cart-icon, .account-icon {
+            cursor: pointer;
+            font-size: 1.25rem;
+            color: var(--text-dark);
+            transition: color 0.2s;
+            position: relative;
+        }
+
+        .cart-icon:hover, .account-icon:hover {
+            color: var(--accent-green);
+        }
+
+        .cart-count {
+            position: absolute;
+            top: -8px;
+            right: -10px;
+            background-color: var(--accent-green);
+            color: white;
+            border-radius: 50%;
+            width: 20px;
+            height: 20px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .order-now-btn {
+            background-color: var(--accent-green);
+            color: white;
+            border: none;
+            padding: 0.6rem 1.2rem;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.9rem;
+            transition: background-color 0.2s;
+        }
+
+        .order-now-btn:hover {
+            background-color: var(--primary-green);
+        }
+
+        .hamburger {
+            display: none;
+            flex-direction: column;
+            cursor: pointer;
+            gap: 5px;
+        }
+
+        .hamburger span {
+            width: 25px;
+            height: 3px;
+            background-color: var(--text-dark);
+            border-radius: 2px;
+            transition: all 0.3s;
+        }
+
+        .mobile-nav {
+            display: none;
+            flex-direction: column;
+            gap: 1rem;
+            padding: 1rem;
+            background-color: #fff;
+            position: absolute;
+            top: 100%;
+            left: 0;
+            right: 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .mobile-nav a {
+            text-decoration: none;
+            color: var(--text-dark);
+            padding: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .hamburger {
+                display: flex;
+            }
+
+            nav {
+                display: none;
+            }
+
+            .order-now-btn {
+                display: none;
+            }
+        }
+
+        /* Main Container */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 0 1rem;
+        }
+
+        /* Pages */
+        .page {
+            display: none;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        /* Welcome Page */
+        .welcome-container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            min-height: calc(100vh - 80px);
+            gap: 2rem;
+            align-items: center;
+            padding: 2rem;
+        }
+
+        .welcome-left {
+            background-color: var(--beige);
+            border-radius: var(--radius);
+            overflow: hidden;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 500px;
+        }
+
+        .welcome-left img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .welcome-right {
+            display: flex;
+            flex-direction: column;
+            gap: 2rem;
+        }
+
+        .welcome-content h1 {
+            font-size: 2.5rem;
+            color: var(--primary-green);
+            line-height: 1.2;
+        }
+
+        .welcome-content p {
+            color: var(--text-light);
+            font-size: 1rem;
+        }
+
+        .form-card {
+            background-color: #fff;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .form-card h2 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+        }
+
+        .form-card > p {
+            color: var(--text-light);
+            margin-bottom: 1.5rem;
+            font-size: 0.95rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: var(--text-dark);
+            font-weight: 500;
+            font-size: 0.9rem;
+        }
+
+        .form-group input {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+            transition: border-color 0.2s;
+        }
+
+        .form-group input:focus {
+            outline: none;
+            border-color: var(--accent-green);
+        }
+
+        .form-group input.error {
+            border-color: #e74c3c;
+        }
+
+        .error-message {
+            color: #e74c3c;
+            font-size: 0.85rem;
+            margin-top: 0.25rem;
+        }
+
+        .submit-btn {
+            width: 100%;
+            padding: 0.75rem;
+            background-color: var(--accent-green);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.2s;
+            font-size: 1rem;
+        }
+
+        .submit-btn:hover:not(:disabled) {
+            background-color: var(--primary-green);
+        }
+
+        .submit-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .security-notice {
+            text-align: center;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-top: 1rem;
+        }
+
+        @media (max-width: 768px) {
+            .welcome-container {
+                grid-template-columns: 1fr;
+                padding: 1rem;
+            }
+
+            .welcome-left {
+                min-height: 300px;
+            }
+
+            .welcome-content h1 {
+                font-size: 1.75rem;
+            }
+        }
+
+        /* Hero Section */
+        .hero {
+            background: linear-gradient(135deg, rgba(45, 80, 22, 0.7), rgba(106, 158, 63, 0.7)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%23faf8f3" width="1200" height="600"/></svg>');
+            background-size: cover;
+            background-position: center;
+            color: white;
+            padding: 6rem 2rem;
+            text-align: center;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 0.5rem;
+            line-height: 1.2;
+        }
+
+        .hero-subtitle {
+            font-size: 1.1rem;
+            margin-bottom: 1rem;
+            opacity: 0.95;
+        }
+
+        .hero p {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+        }
+
+        .hero-buttons {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            flex-wrap: wrap;
+        }
+
+        .btn {
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background-color: white;
+            color: var(--primary-green);
+        }
+
+        .btn-primary:hover {
+            transform: translateY(-2px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .btn-secondary {
+            background-color: var(--accent-green);
+            color: white;
+            border: 2px solid white;
+        }
+
+        .btn-secondary:hover {
+            background-color: white;
+            color: var(--accent-green);
+        }
+
+        @media (max-width: 768px) {
+            .hero {
+                padding: 3rem 1rem;
+            }
+
+            .hero h1 {
+                font-size: 1.75rem;
+            }
+
+            .hero-buttons {
+                flex-direction: column;
+            }
+
+            .btn {
+                width: 100%;
+            }
+        }
+
+        /* Offerings Grid */
+        .offerings {
+            margin: 4rem 0;
+            text-align: center;
+        }
+
+        .offerings h2 {
+            font-size: 2rem;
+            margin-bottom: 3rem;
+            color: var(--primary-green);
+        }
+
+        .offerings-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+        }
+
+        .offering-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s;
+            cursor: pointer;
+            border: 1px solid var(--border-light);
+        }
+
+        .offering-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .offering-card h3 {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary-green);
+        }
+
+        .offering-card p {
+            color: var(--text-light);
+        }
+
+        /* Location Section */
+        .location-section {
+            margin: 4rem 0;
+            background-color: white;
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-light);
+        }
+
+        .location-section h2 {
+            font-size: 2rem;
+            margin-bottom: 1rem;
+            color: var(--primary-green);
+        }
+
+        .location-section p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+            line-height: 1.6;
+        }
+
+        .location-details {
+            margin-bottom: 1.5rem;
+        }
+
+        .location-details strong {
+            color: var(--text-dark);
+        }
+
+        .location-details p {
+            margin: 0.5rem 0;
+        }
+
+        .location-btn {
+            background-color: var(--accent-green);
+            color: white;
+            padding: 0.8rem 1.5rem;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .location-btn:hover {
+            background-color: var(--primary-green);
+        }
+
+        /* Products Page */
+        .products-hero {
+            background-color: var(--beige);
+            padding: 3rem 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+        }
+
+        .products-hero h1 {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .products-hero p {
+            color: var(--text-light);
+            max-width: 600px;
+        }
+
+        .filters {
+            display: flex;
+            gap: 1rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .filter-btn {
+            padding: 0.6rem 1.2rem;
+            border: 2px solid var(--border-light);
+            background-color: white;
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s;
+            font-weight: 500;
+        }
+
+        .filter-btn.active {
+            background-color: var(--accent-green);
+            color: white;
+            border-color: var(--accent-green);
+        }
+
+        .filter-btn:hover {
+            border-color: var(--accent-green);
+        }
+
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .product-card {
+            background-color: white;
+            border-radius: var(--radius);
+            overflow: hidden;
+            box-shadow: var(--shadow-light);
+            transition: all 0.3s;
+            border: 1px solid var(--border-light);
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-card:hover {
+            transform: translateY(-4px);
+            box-shadow: var(--shadow-medium);
+        }
+
+        .product-image {
+            width: 100%;
+            height: 200px;
+            background-color: var(--beige);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .product-badge {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background-color: var(--accent-green);
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 20px;
+            font-size: 0.75rem;
+            font-weight: 600;
+        }
+
+        .product-content {
+            padding: 1rem;
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .product-name {
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            color: var(--text-dark);
+        }
+
+        .product-description {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            margin-bottom: 0.5rem;
+        }
+
+        .product-price {
+            font-size: 1.1rem;
+            color: var(--accent-green);
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+        }
+
+        .product-unit {
+            font-size: 0.8rem;
+            color: var(--text-light);
+        }
+
+        .product-controls {
+            display: flex;
+            gap: 0.5rem;
+            align-items: center;
+            margin-bottom: 0.75rem;
+        }
+
+        .quantity-control {
+            display: flex;
+            align-items: center;
+            gap: 0.25rem;
+            border: 1px solid var(--border-light);
+            border-radius: 4px;
+            background-color: var(--beige);
+        }
+
+        .quantity-control button {
+            background: none;
+            border: none;
+            width: 24px;
+            height: 24px;
+            cursor: pointer;
+            color: var(--text-dark);
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .quantity-control button:hover {
+            background-color: var(--border-light);
+        }
+
+        .quantity-display {
+            width: 30px;
+            text-align: center;
+            font-weight: 600;
+            font-size: 0.9rem;
+        }
+
+        .add-to-cart-btn {
+            width: 100%;
+            padding: 0.6rem;
+            background-color: var(--accent-green);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            transition: background-color 0.2s;
+        }
+
+        .add-to-cart-btn:hover {
+            background-color: var(--primary-green);
+        }
+
+        /* Footer */
+        footer {
+            background-color: var(--primary-green);
+            color: white;
+            padding: 3rem 0 1rem;
+            margin-top: 4rem;
+        }
+
+        .footer-content {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 2rem;
+            margin-bottom: 2rem;
+        }
+
+        .footer-section h3 {
+            margin-bottom: 1rem;
+            font-size: 1rem;
+        }
+
+        .footer-section a {
+            color: rgba(255, 255, 255, 0.8);
+            text-decoration: none;
+            display: block;
+            margin-bottom: 0.5rem;
+            transition: color 0.2s;
+        }
+
+        .footer-section a:hover {
+            color: white;
+        }
+
+        .footer-brand {
+            margin-bottom: 2rem;
+        }
+
+        .footer-brand h2 {
+            margin-bottom: 0.5rem;
+        }
+
+        .footer-brand p {
+            color: rgba(255, 255, 255, 0.8);
+            font-size: 0.9rem;
+        }
+
+        .footer-bottom {
+            border-top: 1px solid rgba(255, 255, 255, 0.2);
+            padding-top: 1rem;
+            text-align: center;
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 0.85rem;
+        }
+
+        /* Cart Page */
+        .cart-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .cart-items {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-light);
+        }
+
+        .cart-item {
+            display: grid;
+            grid-template-columns: 100px 1fr 100px 50px;
+            gap: 1.5rem;
+            align-items: center;
+            padding: 1.5rem 0;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .cart-item:last-child {
+            border-bottom: none;
+        }
+
+        .cart-item-image {
+            width: 100px;
+            height: 100px;
+            background-color: var(--beige);
+            border-radius: var(--radius);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+        }
+
+        .cart-item-details h3 {
+            margin-bottom: 0.25rem;
+        }
+
+        .cart-item-details p {
+            color: var(--text-light);
+            font-size: 0.9rem;
+        }
+
+        .cart-item-price {
+            font-weight: 600;
+            color: var(--accent-green);
+        }
+
+        .remove-btn {
+            background-color: #f0f0f0;
+            border: none;
+            color: var(--text-dark);
+            cursor: pointer;
+            width: 30px;
+            height: 30px;
+            border-radius: 4px;
+            transition: background-color 0.2s;
+        }
+
+        .remove-btn:hover {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .cart-summary {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-light);
+            height: fit-content;
+        }
+
+        .summary-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .summary-row.total {
+            font-size: 1.2rem;
+            font-weight: 700;
+            color: var(--primary-green);
+            border-bottom: none;
+            margin-top: 1rem;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--accent-green);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+            margin-top: 1rem;
+        }
+
+        .checkout-btn:hover {
+            background-color: var(--primary-green);
+        }
+
+        .continue-shopping-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--beige);
+            color: var(--primary-green);
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 0.5rem;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 3rem;
+        }
+
+        .empty-cart p {
+            color: var(--text-light);
+            margin-bottom: 1rem;
+        }
+
+        /* Checkout Page */
+        .checkout-container {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .checkout-form {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-light);
+        }
+
+        .checkout-form h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-green);
+        }
+
+        .form-section {
+            margin-bottom: 2rem;
+        }
+
+        .form-section h3 {
+            font-size: 1rem;
+            margin-bottom: 1rem;
+            color: var(--text-dark);
+            border-bottom: 2px solid var(--beige);
+            padding-bottom: 0.5rem;
+        }
+
+        .radio-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.75rem;
+        }
+
+        .radio-option {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            padding: 0.75rem;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .radio-option:hover {
+            border-color: var(--accent-green);
+            background-color: rgba(107, 158, 63, 0.05);
+        }
+
+        .radio-option input[type="radio"] {
+            cursor: pointer;
+        }
+
+        .radio-option input[type="radio"]:checked + label {
+            font-weight: 600;
+        }
+
+        .checkout-summary {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-light);
+            height: fit-content;
+        }
+
+        .checkout-summary h2 {
+            margin-bottom: 1.5rem;
+            color: var(--primary-green);
+        }
+
+        .checkout-item {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+            font-size: 0.9rem;
+        }
+
+        .checkout-item:last-of-type {
+            border-bottom: none;
+        }
+
+        .pay-now-btn {
+            width: 100%;
+            padding: 1rem;
+            background-color: var(--accent-green);
+            color: white;
+            border: none;
+            border-radius: var(--radius);
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: background-color 0.2s;
+            margin-top: 1.5rem;
+        }
+
+        .pay-now-btn:hover:not(:disabled) {
+            background-color: var(--primary-green);
+        }
+
+        .pay-now-btn:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        /* Order Confirmation */
+        .confirmation-container {
+            max-width: 600px;
+            margin: 2rem auto;
+            background-color: white;
+            padding: 3rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-medium);
+            text-align: center;
+        }
+
+        .confirmation-icon {
+            font-size: 4rem;
+            margin-bottom: 1rem;
+        }
+
+        .confirmation-container h1 {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .confirmation-container p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .order-id-box {
+            background-color: var(--beige);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin: 2rem 0;
+            border-left: 4px solid var(--accent-green);
+        }
+
+        .order-id-box strong {
+            display: block;
+            color: var(--text-light);
+            font-size: 0.85rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .order-id-box .id {
+            font-size: 1.5rem;
+            color: var(--primary-green);
+            font-weight: 700;
+        }
+
+        .confirmation-details {
+            text-align: left;
+            background-color: var(--beige);
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+        }
+
+        .detail-row {
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid var(--border-light);
+        }
+
+        .detail-row:last-child {
+            border-bottom: none;
+            margin-bottom: 0;
+            padding-bottom: 0;
+        }
+
+        .detail-label {
+            color: var(--text-light);
+        }
+
+        .detail-value {
+            font-weight: 600;
+            color: var(--text-dark);
+        }
+
+        .confirmation-buttons {
+            display: flex;
+            gap: 1rem;
+            margin-top: 2rem;
+        }
+
+        .confirmation-buttons .btn {
+            flex: 1;
+        }
+
+        .confirmation-links {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 2rem;
+            flex-wrap: wrap;
+        }
+
+        .confirmation-links a {
+            color: var(--accent-green);
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .confirmation-links a:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .cart-container,
+            .checkout-container {
+                grid-template-columns: 1fr;
+            }
+
+            .cart-item {
+                grid-template-columns: 80px 1fr;
+            }
+
+            .cart-item-image {
+                width: 80px;
+                height: 80px;
+            }
+
+            .confirmation-buttons {
+                flex-direction: column;
+            }
+        }
+
+        /* Breadcrumb */
+        .breadcrumb {
+            display: flex;
+            gap: 0.5rem;
+            margin: 1rem 0;
+            font-size: 0.9rem;
+            flex-wrap: wrap;
+        }
+
+        .breadcrumb a {
+            color: var(--accent-green);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .breadcrumb a:hover {
+            text-decoration: underline;
+        }
+
+        .breadcrumb span {
+            color: var(--text-light);
+        }
+
+        /* About/Info Pages */
+        .info-page {
+            max-width: 900px;
+            margin: 2rem auto;
+        }
+
+        .info-page h1 {
+            font-size: 2rem;
+            color: var(--primary-green);
+            margin-bottom: 1rem;
+        }
+
+        .info-page > p {
+            color: var(--text-light);
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .info-section {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin-bottom: 2rem;
+            box-shadow: var(--shadow-light);
+        }
+
+        .info-section h2 {
+            color: var(--accent-green);
+            margin-bottom: 1rem;
+        }
+
+        .info-section p {
+            color: var(--text-light);
+            line-height: 1.8;
+        }
+
+        /* Contact Form */
+        .enquiry-form {
+            max-width: 600px;
+            margin: 2rem auto;
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-light);
+        }
+
+        .enquiry-form h1 {
+            color: var(--primary-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .enquiry-form > p {
+            color: var(--text-light);
+            margin-bottom: 2rem;
+        }
+
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+        }
+
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem;
+            border: 1px solid var(--border-light);
+            border-radius: var(--radius);
+            font-size: 0.95rem;
+            resize: vertical;
+            min-height: 120px;
+            font-family: inherit;
+        }
+
+        .success-message {
+            background-color: #d4edda;
+            color: #155724;
+            padding: 1rem;
+            border-radius: var(--radius);
+            margin-bottom: 1rem;
+            border-left: 4px solid #28a745;
+        }
+
+        .contact-info {
+            background-color: var(--beige);
+            padding: 2rem;
+            border-radius: var(--radius);
+            margin-top: 3rem;
+        }
+
+        .contact-info h2 {
+            color: var(--primary-green);
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-person {
+            margin-bottom: 1.5rem;
+        }
+
+        .contact-person p {
+            margin: 0.5rem 0;
+        }
+
+        .contact-person strong {
+            display: block;
+            margin-bottom: 0.5rem;
+        }
+
+        .contact-btn {
+            display: inline-block;
+            margin-right: 0.5rem;
+            margin-top: 0.5rem;
+            padding: 0.5rem 1rem;
+            background-color: var(--accent-green);
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .contact-btn:hover {
+            background-color: var(--primary-green);
+        }
+
+        /* Achievements */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .stat-card {
+            background-color: white;
+            padding: 2rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-light);
+            text-align: center;
+            border-top: 4px solid var(--accent-green);
+        }
+
+        .stat-number {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--accent-green);
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-label {
+            color: var(--text-light);
+            font-size: 0.95rem;
+        }
+
+        /* Reviews */
+        .reviews-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 2rem;
+            margin: 2rem 0;
+        }
+
+        .review-card {
+            background-color: white;
+            padding: 1.5rem;
+            border-radius: var(--radius);
+            box-shadow: var(--shadow-light);
+        }
+
+        .review-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 1rem;
+        }
+
+        .review-author {
+            font-weight: 600;
+        }
+
+        .review-rating {
+            color: #f39c12;
+        }
+
+        .review-text {
+            color: var(--text-light);
+            line-height: 1.6;
+            margin-bottom: 0.75rem;
+        }
+
+        .review-product {
+            font-size: 0.85rem;
+            color: var(--text-light);
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a class="logo" onclick="navigateTo('home')">FreshHarvest</a>
+            
+            <nav id="mainNav">
+                <a onclick="navigateTo('home')">Home</a>
+                <a onclick="navigateTo('products')">Shop</a>
+                <a onclick="navigateTo('categories')">Categories</a>
+                <a onclick="navigateTo('about')">About Us</a>
+                <a onclick="navigateTo('sustainability')">Sustainability</a>
+            </nav>
+
+            <div class="hamburger" onclick="toggleMobileNav()">
+                <span></span>
+                <span></span>
+                <span></span>
+            </div>
+
+            <div class="mobile-nav" id="mobileNav">
+                <a onclick="navigateTo('home')">Home</a>
+                <a onclick="navigateTo('products')">Shop</a>
+                <a onclick="navigateTo('categories')">Categories</a>
+                <a onclick="navigateTo('about')">About Us</a>
+                <a onclick="navigateTo('sustainability')">Sustainability</a>
+                <a onclick="navigateTo('achievements')">Achievements</a>
+                <a onclick="navigateTo('reviews')">Reviews</a>
+                <a onclick="navigateTo('contact')">Contact</a>
+            </div>
+
+            <div class="header-right">
+                <div class="cart-icon" onclick="navigateTo('cart')">
+                    🛒
+                    <span class="cart-count" id="cartCount">0</span>
+                </div>
+                <div class="account-icon">👤</div>
+                <button class="order-now-btn" onclick="navigateTo('products')">Order Now</button>
+            </div>
+        </div>
+    </header>
+
+    <!-- Welcome Page -->
+    <div id="welcome" class="page active">
+        <div class="welcome-container">
+            <div class="welcome-left">
+                <svg viewBox="0 0 400 500" xmlns="http://www.w3.org/2000/svg">
+                    <rect fill="#f5f1e8" width="400" height="500"/>
+                    <circle cx="200" cy="150" r="80" fill="#6b9e3f" opacity="0.3"/>
+                    <circle cx="250" cy="250" r="60" fill="#4a7c24" opacity="0.2"/>
+                    <circle cx="150" cy="350" r="70" fill="#2d5016" opacity="0.15"/>
+                    <text x="200" y="450" font-size="24" text-anchor="middle" fill="#2d5016" font-weight="bold">Fresh Farm Produce</text>
+                </svg>
+            </div>
+            <div class="welcome-right">
+                <div class="welcome-content">
+                    <h1>Welcome to<br>FreshHarvest</h1>
+                    <p>Fresh vegetables, fruits and leafy greens sourced with care for your everyday needs.</p>
+                </div>
+                <div class="form-card">
+                    <h2>Let's Get Started</h2>
+                    <p>Your details help us provide a smoother ordering experience.</p>
+                    <form id="customerForm" onsubmit="handleCustomerSubmit(event)">
+                        <div class="form-group">
+                            <label for="fullName">Full Name *</label>
+                            <input type="text" id="fullName" required>
+                            <div class="error-message" id="fullNameError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" required>
+                            <div class="error-message" id="emailError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number *</label>
+                            <input type="tel" id="phone" placeholder="10-digit Indian mobile number" required>
+                            <div class="error-message" id="phoneError"></div>
+                        </div>
+                        <button type="submit" class="submit-btn" id="customerSubmitBtn">Continue →</button>
+                    </form>
+                    <div class="security-notice">🔒 Secure & Private Data Handling</div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Home Page -->
+    <div id="home" class="page">
+        <div class="container">
+            <!-- Hero -->
+            <section class="hero">
+                <h1 class="hero-subtitle">FRESH • NATURAL • FARM SOURCED</h1>
+                <h1>Fresh From the Farm to Your Home</h1>
+                <p>Choose fresh vegetables, fruits and leafy greens from trusted farmers directly to your doorstep. Experience modern agronomy with a human touch.</p>
+                <div class="hero-buttons">
+                    <button class="btn btn-primary" onclick="navigateTo('products')">Shop Products</button>
+                    <button class="btn btn-secondary" onclick="navigateTo('products')">Order Now</button>
+                </div>
+            </section>
+
+            <!-- Offerings -->
+            <section class="offerings">
+                <h2>Our Offerings</h2>
+                <div class="offerings-grid">
+                    <div class="offering-card" onclick="filterProducts('vegetables')">
+                        <h3>Vegetables</h3>
+                        <p>Daily harvested essentials.</p>
+                    </div>
+                    <div class="offering-card" onclick="filterProducts('fruits')">
+                        <h3>Fruits</h3>
+                        <p>Seasonal and sweet.</p>
+                    </div>
+                    <div class="offering-card" onclick="filterProducts('leafy-greens')">
+                        <h3>Leafy Greens</h3>
+                        <p>Nutrient-dense daily greens.</p>
+                    </div>
+                    <div class="offering-card" onclick="filterProducts('natural-products')">
+                        <h3>Natural Farm</h3>
+                        <p>Spices, honey, and grains.</p>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Location -->
+            <section class="location-section">
+                <h2>Where We Are</h2>
+                <p>Visit our main distribution hub and experience the heart of modern agronomy. We are located in the lush landscapes of Tamil Nadu.</p>
+                <div class="location-details">
+                    <p><strong>Location:</strong> Kaliingamalai, Tamil Nadu - 605502</p>
+                    <p><strong>GPS:</strong> 11.981243, 79.686278</p>
+                </div>
+                <button class="location-btn" onclick="openGoogleMaps()">View Location</button>
+            </section>
+        </div>
+    </div>
+
+    <!-- Categories Page -->
+    <div id="categories" class="page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="navigateTo('home')">Home</a>
+                <span>/</span>
+                <span>Categories</span>
+            </div>
+            <div class="products-hero">
+                <h1>Product Categories</h1>
+                <p>Explore our wide range of fresh, organic produce from trusted local farmers.</p>
+            </div>
+            <div class="offerings-grid">
+                <div class="offering-card" onclick="navigateTo('vegetables')">
+                    <h3>🥕 Vegetables</h3>
+                    <p>Fresh, crisp vegetables harvested daily.</p>
+                </div>
+                <div class="offering-card" onclick="navigateTo('fruits')">
+                    <h3>🍎 Fruits</h3>
+                    <p>Seasonal and sweet fruits from our orchards.</p>
+                </div>
+                <div class="offering-card" onclick="navigateTo('leafy-greens')">
+                    <h3>🥬 Leafy Greens</h3>
+                    <p>Nutrient-rich greens for your daily meals.</p>
+                </div>
+                <div class="offering-card" onclick="navigateTo('natural-products')">
+                    <h3>🌾 Natural Products</h3>
+                    <p>Organic spices, honey, and grains.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Products Page -->
+    <div id="products" class="page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="navigateTo('home')">Home</a>
+                <span>/</span>
+                <span>Products</span>
+            </div>
+            <div class="products-hero">
+                <h1>Fresh from the Farm</h1>
+                <p>Explore our selection of freshly harvested, organic produce directly sourced from local farmers. Quality and freshness guaranteed in every bite.</p>
+            </div>
+            <div class="filters">
+                <button class="filter-btn active" onclick="filterProducts('all')">All</button>
+                <button class="filter-btn" onclick="filterProducts('vegetables')">Vegetables</button>
+                <button class="filter-btn" onclick="filterProducts('fruits')">Fruits</button>
+                <button class="filter-btn" onclick="filterProducts('leafy-greens')">Leafy Greens</button>
+                <button class="filter-btn" onclick="filterProducts('natural-products')">Natural Products</button>
+            </div>
+            <div class="products-grid" id="productsGrid"></div>
+        </div>
+    </div>
+
+    <!-- Vegetables Page -->
+    <div id="vegetables" class="page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="navigateTo('home')">Home</a>
+                <span>/</span>
+                <a onclick="navigateTo('categories')">Categories</a>
+                <span>/</span>
+                <span>Vegetables</span>
+            </div>
+            <div class="products-hero">
+                <h1>Fresh Vegetables</h1>
+                <p>Sourced daily from local farms. Crisp, nutritious, and grown with modern agronomy practices.</p>
+            </div>
+            <div class="products-grid" id="vegetablesGrid"></div>
+        </div>
+    </div>
+
+    <!-- Fruits Page -->
+    <div id="fruits" class="page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="navigateTo('home')">Home</a>
+                <span>/</span>
+                <a onclick="navigateTo('categories')">Categories</a>
+                <span>/</span>
+                <span>Fruits</span>
+            </div>
+            <div class="products-hero">
+                <h1>Fresh Fruits</h1>
+                <p>Handpicked daily from our partner orchards. Bursting with flavor and essential nutrients.</p>
+            </div>
+            <div class="products-grid" id="fruitsGrid"></div>
+        </div>
+    </div>
+
+    <!-- Leafy Greens Page -->
+    <div id="leafy-greens" class="page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="navigateTo('home')">Home</a>
+                <span>/</span>
+                <a onclick="navigateTo('categories')">Categories</a>
+                <span>/</span>
+                <span>Leafy Greens</span>
+            </div>
+            <div class="products-hero">
+                <h1>Leafy Greens</h1>
+                <p>Locally sourced, organically grown greens delivered straight from the farm to your kitchen. Peak freshness guaranteed.</p>
+            </div>
+            <div class="filters">
+                <button class="filter-btn active" onclick="filterGreens('all')">All Greens</button>
+                <button class="filter-btn" onclick="filterGreens('organic')">Organic</button>
+                <button class="filter-btn" onclick="filterGreens('hydroponic')">Hydroponic</button>
+            </div>
+            <div class="products-grid" id="leafyGreensGrid"></div>
+        </div>
+    </div>
+
+    <!-- Natural Products Page -->
+    <div id="natural-products" class="page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="navigateTo('home')">Home</a>
+                <span>/</span>
+                <a onclick="navigateTo('categories')">Categories</a>
+                <span>/</span>
+                <span>Natural Farm Products</span>
+            </div>
+            <div class="products-hero">
+                <h1>Natural Farm Products</h1>
+                <p>Discover the pure, unadulterated essence of agriculture. Sourced directly from sustainable farms, our natural goods are grown with respect for the earth and delivered fresh to your table.</p>
+            </div>
+            <div class="products-grid" id="naturalProductsGrid"></div>
+        </div>
+    </div>
+
+    <!-- Cart Page -->
+    <div id="cart" class="page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="navigateTo('home')">Home</a>
+                <span>/</span>
+                <span>Cart</span>
+            </div>
+            <h1 style="margin: 2rem 0; color: var(--primary-green);">Shopping Cart</h1>
+            <div class="cart-container">
+                <div class="cart-items" id="cartItemsContainer"></div>
+                <div class="cart-summary" id="cartSummary"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Checkout Page -->
+    <div id="checkout" class="page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="navigateTo('home')">Home</a>
+                <span>/</span>
+                <span>Checkout</span>
+            </div>
+            <h1 style="margin: 2rem 0; color: var(--primary-green);">Checkout</h1>
+            <div class="checkout-container">
+                <form class="checkout-form" id="checkoutForm" onsubmit="handleCheckout(event)">
+                    <section class="form-section">
+                        <h3>Your Cart</h3>
+                        <div id="checkoutItemsList" style="margin-bottom: 1.5rem;"></div>
+                    </section>
+
+                    <section class="form-section">
+                        <h3>Delivery Details</h3>
+                        <div class="form-group">
+                            <label for="checkoutName">Full Name *</label>
+                            <input type="text" id="checkoutName" required>
+                            <div class="error-message" id="checkoutNameError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutPhone">Phone Number *</label>
+                            <input type="tel" id="checkoutPhone" placeholder="10-digit Indian mobile number" required>
+                            <div class="error-message" id="checkoutPhoneError"></div>
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutEmail">Email (Optional)</label>
+                            <input type="email" id="checkoutEmail">
+                        </div>
+                        <div class="form-group">
+                            <label for="checkoutAddress">Delivery Address *</label>
+                            <textarea id="checkoutAddress" required placeholder="Enter your complete delivery address"></textarea>
+                            <div class="error-message" id="checkoutAddressError"></div>
+                        </div>
+                    </section>
+
+                    <section class="form-section">
+                        <h3>Payment Method</h3>
+                        <div class="radio-group">
+                            <label class="radio-option">
+                                <input type="radio" name="paymentMethod" value="upi" checked required>
+                                <label>💳 UPI (Google Pay, PhonePe)</label>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="paymentMethod" value="card" required>
+                                <label>💳 Credit / Debit Card</label>
+                            </label>
+                            <label class="radio-option">
+                                <input type="radio" name="paymentMethod" value="netbanking" required>
+                                <label>🏦 Net Banking</label>
+                            </label>
+                        </div>
+                        <div class="error-message" id="paymentError"></div>
+                    </section>
+
+                    <button type="submit" class="pay-now-btn" id="payNowBtn">PAY NOW</button>
+                </form>
+
+                <div class="checkout-summary" id="checkoutSummary"></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Order Confirmation Page -->
+    <div id="confirmation" class="page">
+        <div class="container">
+            <div class="confirmation-container" id="confirmationContent"></div>
+        </div>
+    </div>
+
+    <!-- About Us Page -->
+    <div id="about" class="page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="navigateTo('home')">Home</a>
+                <span>/</span>
+                <span>About Us</span>
+            </div>
+            <div class="info-page">
+                <h1>About FreshHarvest</h1>
+                <p>FreshHarvest is a modern agricultural e-commerce platform dedicated to connecting fresh, organic produce directly from trusted local farmers to your kitchen.</p>
+                
+                <div class="info-section">
+                    <h2>Our Mission</h2>
+                    <p>We bridge the gap between traditional farming and modern logistics, ensuring that every vegetable, fruit, and leafy green reaches your table at peak freshness while supporting sustainable agricultural practices.</p>
+                </div>
+
+                <div class="info-section">
+                    <h2>Direct Farm Sourcing</h2>
+                    <p>We work directly with local farmers who share our commitment to quality and sustainability. By eliminating middlemen, we ensure you get the freshest produce while farmers receive fair compensation for their work.</p>
+                </div>
+
+                <div class="info-section">
+                    <h2>Quality Guarantee</h2>
+                    <p>Every product is handpicked and quality-checked before delivery. We partner only with farmers who use modern agronomy practices and maintain the highest standards of hygiene and freshness.</p>
+                </div>
+
+                <div class="info-section">
+                    <h2>Farm-to-Home Logistics</h2>
+                    <p>Our efficient logistics network ensures that produce reaches your doorstep within 24 hours of harvesting, maintaining peak freshness and nutritional value. We invest in cold-chain technology to preserve quality throughout the delivery process.</p>
+                </div>
+
+                <div class="info-section">
+                    <h2>Sustainable Agriculture</h2>
+                    <p>We are committed to supporting farming practices that respect the environment. Our partner farmers implement water conservation, organic fertilization, and crop rotation techniques to ensure long-term soil health and productivity.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Achievements Page -->
+    <div id="achievements" class="page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="navigateTo('home')">Home</a>
+                <span>/</span>
+                <span>Achievements</span>
+            </div>
+            <div class="info-page">
+                <h1>Our Achievements</h1>
+                <p>Building trust through transparency, quality, and commitment to sustainable agriculture.</p>
+
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <div class="stat-number">250+</div>
+                        <div class="stat-label">Farmers Partnered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">50K+</div>
+                        <div class="stat-label">Happy Customers</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">200T</div>
+                        <div class="stat-label">Fresh Produce Delivered</div>
+                    </div>
+                    <div class="stat-card">
+                        <div class="stat-number">98%</div>
+                        <div class="stat-label">Customer Satisfaction</div>
+                    </div>
+                </div>
+
+                <div class="info-section">
+                    <h2>Farmer Support Program</h2>
+                    <p>We provide training, resources, and fair pricing to over 250 farmers, helping them adopt sustainable practices and improve their livelihoods through modern agronomy techniques.</p>
+                </div>
+
+                <div class="info-section">
+                    <h2>Organic Certification</h2>
+                    <p>A significant portion of our product range is certified organic, meeting strict standards for pesticide-free, environmentally responsible farming. We continuously work to expand our organic offerings.</p>
+                </div>
+
+                <div class="info-section">
+                    <h2>Sustainability Initiatives</h2>
+                    <p>From reducing packaging waste to implementing water conservation techniques on partner farms, we're committed to minimizing our environmental footprint while delivering the freshest produce to your table.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Reviews Page -->
+    <div id="reviews" class="page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="navigateTo('home')">Home</a>
+                <span>/</span>
+                <span>Reviews</span>
+            </div>
+            <div class="info-page">
+                <h1>Customer Reviews</h1>
+                <p>See what our customers have to say about FreshHarvest.</p>
+
+                <div class="reviews-grid">
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div>
+                                <div class="review-author">Priya Sharma</div>
+                                <div class="review-rating">★★★★★</div>
+                            </div>
+                        </div>
+                        <div class="review-text">"The freshness of the vegetables is incredible! They last much longer than what I used to buy from regular markets. Highly recommend FreshHarvest!"</div>
+                        <div class="review-product">Farm Fresh Tomatoes</div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div>
+                                <div class="review-author">Rajesh Kumar</div>
+                                <div class="review-rating">★★★★★</div>
+                            </div>
+                        </div>
+                        <div class="review-text">"Fast delivery and excellent quality. The fruits are perfectly ripe and taste amazing. This is my go-to place for fresh produce."</div>
+                        <div class="review-product">Alphonso Mangoes</div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div>
+                                <div class="review-author">Anjali Patel</div>
+                                <div class="review-rating">★★★★★</div>
+                            </div>
+                        </div>
+                        <div class="review-text">"Supporting local farmers while getting the freshest greens for my family. The entire experience has been fantastic!"</div>
+                        <div class="review-product">Fresh Spinach</div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div>
+                                <div class="review-author">Vikram Singh</div>
+                                <div class="review-rating">★★★★☆</div>
+                            </div>
+                        </div>
+                        <div class="review-text">"Great selection of organic products. Prices are reasonable for the quality offered. Will definitely order again."</div>
+                        <div class="review-product">Organic Sona Masoori</div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div>
+                                <div class="review-author">Meera Desai</div>
+                                <div class="review-rating">★★★★★</div>
+                            </div>
+                        </div>
+                        <div class="review-text">"The customer service is excellent and responsive. Whenever I've had questions, they've been quick to help. Love this service!"</div>
+                        <div class="review-product">Crunchy Carrots</div>
+                    </div>
+
+                    <div class="review-card">
+                        <div class="review-header">
+                            <div>
+                                <div class="review-author">Ashok Gupta</div>
+                                <div class="review-rating">★★★★★</div>
+                            </div>
+                        </div>
+                        <div class="review-text">"Best honey I've ever tasted! Pure, unprocessed, and directly from the farm. Worth every rupee!"</div>
+                        <div class="review-product">Pure Wild Honey</div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Sustainability Page -->
+    <div id="sustainability" class="page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="navigateTo('home')">Home</a>
+                <span>/</span>
+                <span>Sustainability</span>
+            </div>
+            <div class="info-page">
+                <h1>Sustainability</h1>
+                <p>At FreshHarvest, we believe that sustainable agriculture is essential for a healthier future. Our commitment goes beyond just selling fresh produce—it's about creating a positive impact on farmers, communities, and the environment.</p>
+
+                <div class="info-section">
+                    <h2>Sustainable Farming Practices</h2>
+                    <p>We partner with farmers who practice crop rotation, use organic fertilizers, and implement water conservation techniques. These methods improve soil health, reduce chemical runoff, and create more resilient farming systems that can adapt to climate change.</p>
+                </div>
+
+                <div class="info-section">
+                    <h2>Responsible Sourcing</h2>
+                    <p>Every product on FreshHarvest is sourced responsibly with full transparency. We maintain direct relationships with our farmers, ensuring fair wages, safe working conditions, and respect for local communities.</p>
+                </div>
+
+                <div class="info-section">
+                    <h2>Reduced Waste & Eco-Friendly Logistics</h2>
+                    <p>We minimize packaging waste by using recyclable and compostable materials. Our efficient cold-chain logistics reduces food spoilage and carbon footprint, ensuring products reach you fresh while protecting the environment.</p>
+                </div>
+
+                <div class="info-section">
+                    <h2>Farmer Support & Modern Agronomy</h2>
+                    <p>We invest in training programs that help farmers adopt modern agronomy techniques, including precision irrigation, soil testing, and pest management. This improves yields while preserving environmental resources for future generations.</p>
+                </div>
+
+                <div class="info-section">
+                    <h2>Biodiversity & Soil Health</h2>
+                    <p>Our partner farms maintain diverse crop portfolios and implement practices that preserve soil health and biodiversity. Healthy soils not only produce better crops but also act as carbon sinks, combating climate change.</p>
+                </div>
+
+                <div class="info-section">
+                    <h2>Community Impact</h2>
+                    <p>By supporting local farming communities, FreshHarvest helps sustain rural livelihoods and creates economic opportunities. We believe in building long-term partnerships that benefit both producers and consumers.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact / Bulk Orders Page -->
+    <div id="contact" class="page">
+        <div class="container">
+            <div class="breadcrumb">
+                <a onclick="navigateTo('home')">Home</a>
+                <span>/</span>
+                <span>Contact</span>
+            </div>
+            <div class="enquiry-form">
+                <h1>Bulk Orders & Enquiries</h1>
+                <p>Partner with FreshHarvest for premium agricultural supplies tailored to your business needs.</p>
+                
+                <div id="enquirySuccess" class="success-message" style="display: none;">
+                    ✓ Thank you! Your enquiry has been submitted successfully. We'll get back to you soon.
+                </div>
+
+                <form id="enquiryForm" onsubmit="handleEnquiry(event)">
+                    <h3 style="margin: 1.5rem 0 1rem; color: var(--primary-green);">Let's Talk About Your Requirement</h3>
+                    
+                    <div class="form-group">
+                        <label for="enquiryName">Full Name *</label>
+                        <input type="text" id="enquiryName" required>
+                        <div class="error-message" id="enquiryNameError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="enquiryEmail">Email Address *</label>
+                        <input type="email" id="enquiryEmail" required>
+                        <div class="error-message" id="enquiryEmailError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="enquiryPhone">Phone Number *</label>
+                        <input type="tel" id="enquiryPhone" placeholder="10-digit Indian mobile number" required>
+                        <div class="error-message" id="enquiryPhoneError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="enquiryCategory">Product / Category *</label>
+                        <select id="enquiryCategory" required>
+                            <option value="">Select a category</option>
+                            <option value="Vegetables">Vegetables</option>
+                            <option value="Fruits">Fruits</option>
+                            <option value="Leafy Greens">Leafy Greens</option>
+                            <option value="Natural Products">Natural Products</option>
+                            <option value="Seeds">Seeds</option>
+                            <option value="Fertilizers">Fertilizers</option>
+                            <option value="Organic Crops">Organic Crops</option>
+                            <option value="Other">Other</option>
+                        </select>
+                        <div class="error-message" id="enquiryCategoryError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="enquiryQuantity">Estimated Quantity *</label>
+                        <input type="text" id="enquiryQuantity" placeholder="e.g., 100 kg, 50 boxes" required>
+                        <div class="error-message" id="enquiryQuantityError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="enquiryLocation">Delivery Location *</label>
+                        <input type="text" id="enquiryLocation" placeholder="City / Area" required>
+                        <div class="error-message" id="enquiryLocationError"></div>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="enquiryMessage">Additional Requirements / Message</label>
+                        <textarea id="enquiryMessage" placeholder="Tell us more about your requirements"></textarea>
+                    </div>
+
+                    <button type="submit" class="submit-btn" id="enquirySubmitBtn">Send Enquiry</button>
+                </form>
+            </div>
+
+            <div class="contact-info">
+                <h2>Direct Support</h2>
+                <div class="contact-person">
+                    <strong>Manager: MohanDass</strong>
+                    <p><strong>Phone:</strong> +91 9786625795</p>
+                    <p><strong>Email:</strong> mohandass234512@gmail.com</p>
+                    <button class="contact-btn" onclick="callPhone('+919786625795')">📞 Call Us</button>
+                    <button class="contact-btn" onclick="emailUs('mohandass234512@gmail.com')">✉️ Email Us</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer>
+        <div class="container">
+            <div class="footer-content">
+                <div class="footer-brand">
+                    <h2>FreshHarvest</h2>
+                    <p>Bridging the gap between traditional farming and modern logistics.</p>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Offerings</h3>
+                    <a onclick="navigateTo('vegetables')">Vegetables</a>
+                    <a onclick="navigateTo('fruits')">Fruits</a>
+                    <a onclick="navigateTo('leafy-greens')">Leafy Greens</a>
+                    <a onclick="navigateTo('natural-products')">Natural Products</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Help</h3>
+                    <a onclick="navigateTo('contact')">Support</a>
+                    <a href="#faq">FAQs</a>
+                    <a href="#shipping">Shipping Policy</a>
+                    <a onclick="navigateTo('contact')">Contact Us</a>
+                </div>
+
+                <div class="footer-section">
+                    <h3>Legal</h3>
+                    <a href="#privacy">Privacy Policy</a>
+                    <a href="#terms">Terms of Service</a>
+                </div>
+            </div>
+
+            <div class="footer-bottom">
+                © 2026 FreshHarvest Agriculture. All rights reserved. Built for Modern Agronomy.
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        // Google Apps Script URL
+        const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbxMyDeS-Jk5QH-5bsI1X0aCJDi9Y1GX69VQFLWdeVCQeHfaWLf889VIpZ22OQGAIL9SFg/exec';
+
+        // Product Database
+        const products = [
+            // Vegetables
+            { id: 1, name: 'Farm Fresh Tomatoes', category: 'vegetables', description: 'Juicy and flavorful', price: 45, unit: '/kg', badge: 'Bestseller', image: '🍅' },
+            { id: 2, name: 'Russet Potato', category: 'vegetables', description: 'Perfect for cooking', price: 30, unit: '/kg', badge: null, image: '🥔' },
+            { id: 3, name: 'Sweet Carrots', category: 'vegetables', description: 'Crunchy and sweet', price: 55, unit: '/kg', badge: 'New Harvest', image: '🥕' },
+            { id: 4, name: 'Red Onion', category: 'vegetables', description: 'Fresh and crisp', price: 40, unit: '/kg', badge: null, image: '🧅' },
+
+            // Fruits
+            { id: 5, name: 'Robusta Bananas', category: 'fruits', description: 'Fresh bunch', price: 50, unit: '/dozen', badge: 'Bestseller', image: '🍌' },
+            { id: 6, name: 'Nagpur Oranges', category: 'fruits', description: 'Juicy oranges', price: 60, unit: '/kg', badge: null, image: '🍊' },
+            { id: 7, name: 'Kinnau Apples', category: 'fruits', description: 'Crisp and sweet', price: 80, unit: '/kg', badge: 'Seasonal', image: '🍎' },
+            { id: 8, name: 'Alphonso Mangoes', category: 'fruits', description: 'King of fruits', price: 120, unit: '/kg', badge: 'Bestseller', image: '🥭' },
+            { id: 9, name: 'Green Seedless Grapes', category: 'fruits', description: 'Sweet clusters', price: 100, unit: '/kg', badge: null, image: '🍇' },
+            { id: 10, name: 'Bhagwa Pomegranate', category: 'fruits', description: 'Juicy seeds', price: 90, unit: '/kg', badge: null, image: '🔴' },
+
+            // Leafy Greens
+            { id: 11, name: 'Fresh Spinach', category: 'leafy-greens', description: 'Organic greens', price: 35, unit: '/bunch', badge: 'Organic', image: '🌱' },
+            { id: 12, name: 'Coriander', category: 'leafy-greens', description: 'Fresh herbs', price: 25, unit: '/bunch', badge: null, image: '🌿' },
+            { id: 13, name: 'Fenugreek (Methi)', category: 'leafy-greens', description: 'Nutrient-rich', price: 30, unit: '/bunch', badge: 'Organic', image: '🌾' },
+            { id: 14, name: 'Fresh Mint', category: 'leafy-greens', description: 'Aromatic leaves', price: 20, unit: '/bunch', badge: null, image: '🍃' },
+            { id: 15, name: 'Romaine Lettuce', category: 'leafy-greens', description: 'Crisp lettuce', price: 40, unit: '/head', badge: null, image: '🥬' },
+
+            // Natural Products
+            { id: 16, name: 'Pure Wild Honey', category: 'natural-products', description: 'Raw, unfiltered', price: 300, unit: '/kg', badge: 'Bestseller', image: '🍯' },
+            { id: 17, name: 'Lakadong Turmeric', category: 'natural-products', description: 'High curcumin', price: 250, unit: '/kg', badge: '100% Organic', image: '💛' },
+            { id: 18, name: 'Organic Sona Masoori', category: 'natural-products', description: 'Basmati rice', price: 80, unit: '/kg', badge: 'Organic', image: '🍚' },
+            { id: 19, name: 'A2 Farm Ghee', category: 'natural-products', description: 'Pure cow ghee', price: 500, unit: '/kg', badge: 'New Harvest', image: '🧈' },
+        ];
+
+        // Cart Management
+        let cart = [];
+
+        function loadCart() {
+            const saved = localStorage.getItem('freshharvestCart');
+            if (saved) {
+                cart = JSON.parse(saved);
+            }
+            updateCartCount();
+        }
+
+        function saveCart() {
+            localStorage.setItem('freshharvestCart', JSON.stringify(cart));
+            updateCartCount();
+        }
+
+        function addToCart(productId, quantity) {
+            const product = products.find(p => p.id === productId);
+            if (!product) return;
+
+            const existing = cart.find(item => item.id === productId);
+            if (existing) {
+                existing.quantity += quantity;
+            } else {
+                cart.push({
+                    id: product.id,
+                    name: product.name,
+                    price: product.price,
+                    unit: product.unit,
+                    quantity: quantity,
+                    image: product.image
+                });
+            }
+            saveCart();
+            showNotification(`${product.name} added to cart!`);
+        }
+
+        function removeFromCart(productId) {
+            cart = cart.filter(item => item.id !== productId);
+            saveCart();
+            renderCart();
+        }
+
+        function updateCartItemQuantity(productId, quantity) {
+            const item = cart.find(item => item.id === productId);
+            if (item) {
+                item.quantity = Math.max(1, quantity);
+                saveCart();
+            }
+        }
+
+        function updateCartCount() {
+            const count = cart.reduce((sum, item) => sum + item.quantity, 0);
+            document.getElementById('cartCount').textContent = count;
+        }
+
+        function clearCart() {
+            cart = [];
+            saveCart();
+        }
+
+        // Notification
+        function showNotification(message) {
+            const notif = document.createElement('div');
+            notif.textContent = message;
+            notif.style.cssText = `
+                position: fixed;
+                top: 100px;
+                right: 20px;
+                background-color: var(--accent-green);
+                color: white;
+                padding: 1rem 1.5rem;
+                border-radius: var(--radius);
+                box-shadow: var(--shadow-medium);
+                z-index: 1000;
+                animation: slideIn 0.3s ease-out;
+            `;
+            document.body.appendChild(notif);
+            setTimeout(() => notif.remove(), 2000);
+        }
+
+        // Navigation
+        function navigateTo(page) {
+            const pages = document.querySelectorAll('.page');
+            pages.forEach(p => p.classList.remove('active'));
+            document.getElementById(page).classList.add('active');
+            window.scrollTo(0, 0);
+
+            if (page === 'products') {
+                renderProducts('all');
+            } else if (page === 'vegetables') {
+                renderProducts('vegetables');
+            } else if (page === 'fruits') {
+                renderProducts('fruits');
+            } else if (page === 'leafy-greens') {
+                renderProducts('leafy-greens');
+            } else if (page === 'natural-products') {
+                renderProducts('natural-products');
+            } else if (page === 'cart') {
+                renderCart();
+            } else if (page === 'checkout') {
+                renderCheckout();
+            }
+        }
+
+        function toggleMobileNav() {
+            const mobileNav = document.getElementById('mobileNav');
+            mobileNav.style.display = mobileNav.style.display === 'flex' ? 'none' : 'flex';
+        }
+
+        // Product Rendering
+        function renderProducts(category) {
+            const grid = document.getElementById('productsGrid') || 
+                         document.getElementById('vegetablesGrid') ||
+                         document.getElementById('fruitsGrid') ||
+                         document.getElementById('leafyGreensGrid') ||
+                         document.getElementById('naturalProductsGrid');
+            
+            const filtered = category === 'all' 
+                ? products 
+                : products.filter(p => p.category === category);
+
+            grid.innerHTML = filtered.map(product => `
+                <div class="product-card">
+                    <div class="product-image">
+                        <span style="font-size: 4rem;">${product.image}</span>
+                        ${product.badge ? `<span class="product-badge">${product.badge}</span>` : ''}
+                    </div>
+                    <div class="product-content">
+                        <div class="product-name">${product.name}</div>
+                        <div class="product-description">${product.description}</div>
+                        <div class="product-price">₹${product.price}</div>
+                        <div class="product-unit">${product.unit}</div>
+                        <div class="product-controls">
+                            <div class="quantity-control">
+                                <button type="button" onclick="updateQuantity(${product.id}, -1, event)">−</button>
+                                <span class="quantity-display" id="qty-${product.id}">1</span>
+                                <button type="button" onclick="updateQuantity(${product.id}, 1, event)">+</button>
+                            </div>
+                        </div>
+                        <button class="add-to-cart-btn" onclick="addProductToCart(${product.id})">Add to Cart</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function updateQuantity(productId, change, event) {
+            event.preventDefault();
+            event.stopPropagation();
+            const display = document.getElementById(`qty-${productId}`);
+            let quantity = parseInt(display.textContent);
+            quantity = Math.max(1, quantity + change);
+            display.textContent = quantity;
+        }
+
+        function addProductToCart(productId) {
+            const display = document.getElementById(`qty-${productId}`);
+            const quantity = parseInt(display.textContent);
+            addToCart(productId, quantity);
+            display.textContent = '1';
+        }
+
+        function filterProducts(category) {
+            navigateTo('products');
+            renderProducts(category);
+            updateFilterButtons();
+        }
+
+        function filterGreens(type) {
+            updateFilterButtons(type);
+        }
+
+        function updateFilterButtons(active = 'all') {
+            document.querySelectorAll('.filter-btn').forEach(btn => {
+                btn.classList.remove('active');
+            });
+            document.querySelector(`[onclick*="${active}"]`)?.classList.add('active');
+        }
+
+        // Cart Rendering
+        function renderCart() {
+            const container = document.getElementById('cartItemsContainer');
+            const summary = document.getElementById('cartSummary');
+
+            if (cart.length === 0) {
+                container.innerHTML = `
+                    <div class="empty-cart">
+                        <p>Your cart is empty</p>
+                        <button class="btn btn-primary" onclick="navigateTo('products')">Continue Shopping</button>
+                    </div>
+                `;
+                summary.innerHTML = '';
+                return;
+            }
+
+            container.innerHTML = `
+                <h2>Your Cart</h2>
+                ${cart.map(item => `
+                    <div class="cart-item">
+                        <div class="cart-item-image">${item.image}</div>
+                        <div class="cart-item-details">
+                            <h3>${item.name}</h3>
+                            <p>₹${item.price}${item.unit}</p>
+                        </div>
+                        <div class="product-controls">
+                            <div class="quantity-control">
+                                <button type="button" onclick="updateCartItemQuantity(${item.id}, ${item.quantity - 1}); renderCart();">−</button>
+                                <span class="quantity-display">${item.quantity}</span>
+                                <button type="button" onclick="updateCartItemQuantity(${item.id}, ${item.quantity + 1}); renderCart();">+</button>
+                            </div>
+                        </div>
+                        <button class="remove-btn" onclick="removeFromCart(${item.id})">✕</button>
+                    </div>
+                `).join('')}
+            `;
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = 150;
+            const total = subtotal + deliveryFee;
+
+            summary.innerHTML = `
+                <h2>Order Summary</h2>
+                <div class="summary-row">
+                    <span>Subtotal</span>
+                    <span>₹${subtotal}</span>
+                </div>
+                <div class="summary-row">
+                    <span>Delivery Fee</span>
+                    <span>₹${deliveryFee}</span>
+                </div>
+                <div class="summary-row total">
+                    <span>Total</span>
+                    <span>₹${total}</span>
+                </div>
+                <button class="checkout-btn" onclick="navigateTo('checkout')">Proceed to Checkout</button>
+                <button class="continue-shopping-btn" onclick="navigateTo('products')">Continue Shopping</button>
+            `;
+        }
+
+        // Checkout Rendering
+        function renderCheckout() {
+            const itemsList = document.getElementById('checkoutItemsList');
+            const summaryDiv = document.getElementById('checkoutSummary');
+
+            if (cart.length === 0) {
+                document.getElementById('checkoutForm').style.display = 'none';
+                summaryDiv.innerHTML = '<p style="color: var(--text-light);">Your cart is empty. <a onclick="navigateTo(\'products\')" style="color: var(--accent-green); cursor: pointer;">Add items</a></p>';
+                return;
+            }
+
+            itemsList.innerHTML = cart.map(item => `
+                <div class="checkout-item">
+                    <span>${item.image} ${item.name}</span>
+                    <span>×${item.quantity}</span>
+                    <span>₹${item.price * item.quantity}</span>
+                </div>
+            `).join('');
+
+            const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+            const deliveryFee = 150;
+            const total = subtotal + deliveryFee;
+
+            summaryDiv.innerHTML = `
+                <h2>Complete Your Order</h2>
+                ${cart.map(item => `
+                    <div class="checkout-item">
+                        <span>${item.name}</span>
+                        <span>₹${(item.price * item.quantity).toLocaleString()}</span>
+                    </div>
+                `).join('')}
+                <div style="border-top: 2px solid var(--border-light); margin: 1rem 0; padding-top: 1rem;">
+                    <div class="checkout-item">
+                        <span>Subtotal</span>
+                        <span>₹${subtotal.toLocaleString()}</span>
+                    </div>
+                    <div class="checkout-item">
+                        <span>Delivery Fee</span>
+                        <span>₹${deliveryFee}</span>
+                    </div>
+                    <div class="checkout-item" style="font-size: 1.1rem; font-weight: 700; color: var(--primary-green);">
+                        <span>Total</span>
+                        <span>₹${total.toLocaleString()}</span>
+                    </div>
+                </div>
+            `;
+        }
+
+        // Form Handling
+        function validateEmail(email) {
+            return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email);
+        }
+
+        function validatePhone(phone) {
+            const digits = phone.replace(/\D/g, '');
+            return digits.length === 10 && /^[6-9]/.test(digits);
+        }
+
+        async function handleCustomerSubmit(event) {
+            event.preventDefault();
+
+            const fullName = document.getElementById('fullName').value.trim();
+            const email = document.getElementById('email').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+
+            let valid = true;
+
+            // Validate name
+            document.getElementById('fullNameError').textContent = '';
+            if (!fullName) {
+                document.getElementById('fullNameError').textContent = 'Name is required';
+                valid = false;
+            }
+
+            // Validate email
+            document.getElementById('emailError').textContent = '';
+            if (!validateEmail(email)) {
+                document.getElementById('emailError').textContent = 'Please enter a valid email';
+                valid = false;
+            }
+
+            // Validate phone
+            document.getElementById('phoneError').textContent = '';
+            if (!validatePhone(phone)) {
+                document.getElementById('phoneError').textContent = 'Please enter a valid 10-digit Indian mobile number';
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            const btn = document.getElementById('customerSubmitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+
+            try {
+                const url = APPS_SCRIPT_URL + '?' + new URLSearchParams({
+                    type: 'customer',
+                    name: fullName,
+                    email: email,
+                    phone: phone
+                });
+
+                await fetch(url, { method: 'GET', mode: 'no-cors' });
+                
+                navigateTo('home');
+                showNotification('Welcome to FreshHarvest!');
+            } catch (error) {
+                console.error('Error:', error);
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Continue →';
+            }
+        }
+
+        async function handleCheckout(event) {
+            event.preventDefault();
+
+            if (cart.length === 0) {
+                showNotification('Your cart is empty');
+                return;
+            }
+
+            const name = document.getElementById('checkoutName').value.trim();
+            const phone = document.getElementById('checkoutPhone').value.trim();
+            const email = document.getElementById('checkoutEmail').value.trim();
+            const address = document.getElementById('checkoutAddress').value.trim();
+            const paymentMethod = document.querySelector('input[name="paymentMethod"]:checked')?.value;
+
+            let valid = true;
+
+            // Clear previous errors
+            document.getElementById('checkoutNameError').textContent = '';
+            document.getElementById('checkoutPhoneError').textContent = '';
+            document.getElementById('checkoutAddressError').textContent = '';
+            document.getElementById('paymentError').textContent = '';
+
+            // Validate
+            if (!name) {
+                document.getElementById('checkoutNameError').textContent = 'Name is required';
+                valid = false;
+            }
+
+            if (!validatePhone(phone)) {
+                document.getElementById('checkoutPhoneError').textContent = 'Please enter a valid 10-digit Indian mobile number';
+                valid = false;
+            }
+
+            if (!address) {
+                document.getElementById('checkoutAddressError').textContent = 'Address is required';
+                valid = false;
+            }
+
+            if (!paymentMethod) {
+                document.getElementById('paymentError').textContent = 'Please select a payment method';
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            const btn = document.getElementById('payNowBtn');
+            btn.disabled = true;
+            btn.textContent = 'Processing...';
+
+            try {
+                const orderId = 'FH' + Date.now();
+                const subtotal = cart.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+                const deliveryFee = 150;
+                const total = subtotal + deliveryFee;
+
+                const itemsText = cart.map(item => `${item.name} (${item.quantity})`).join('; ');
+
+                const url = APPS_SCRIPT_URL + '?' + new URLSearchParams({
+                    type: 'order',
+                    orderId: orderId,
+                    name: name,
+                    phone: phone,
+                    email: email,
+                    address: address,
+                    items: itemsText,
+                    subtotal: subtotal,
+                    deliveryFee: deliveryFee,
+                    total: total,
+                    paymentMethod: paymentMethod
+                });
+
+                await fetch(url, { method: 'GET', mode: 'no-cors' });
+
+                // Store order for confirmation page
+                sessionStorage.setItem('lastOrder', JSON.stringify({
+                    orderId: orderId,
+                    name: name,
+                    phone: phone,
+                    email: email,
+                    address: address,
+                    items: cart,
+                    subtotal: subtotal,
+                    deliveryFee: deliveryFee,
+                    total: total,
+                    paymentMethod: paymentMethod
+                }));
+
+                clearCart();
+                navigateTo('confirmation');
+                renderConfirmation();
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('There was an error processing your order');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'PAY NOW';
+            }
+        }
+
+        function renderConfirmation() {
+            const orderData = JSON.parse(sessionStorage.getItem('lastOrder'));
+            if (!orderData) {
+                document.getElementById('confirmationContent').innerHTML = '<p>No order found</p>';
+                return;
+            }
+
+            document.getElementById('confirmationContent').innerHTML = `
+                <div class="confirmation-icon">✓</div>
+                <h1>Order Confirmed</h1>
+                <p>Thank you for your order! Your harvest is being prepared and will be on its way to you shortly.</p>
+
+                <div class="order-id-box">
+                    <strong>Order ID</strong>
+                    <div class="id">${orderData.orderId}</div>
+                </div>
+
+                <div class="confirmation-details">
+                    <div class="detail-row">
+                        <span class="detail-label">Name</span>
+                        <span class="detail-value">${orderData.name}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Phone</span>
+                        <span class="detail-value">${orderData.phone}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Delivery Address</span>
+                        <span class="detail-value">${orderData.address}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Items</span>
+                        <span class="detail-value">${orderData.items.map(item => `${item.name} (${item.quantity})`).join(', ')}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Subtotal</span>
+                        <span class="detail-value">₹${orderData.subtotal.toLocaleString()}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Delivery Fee</span>
+                        <span class="detail-value">₹${orderData.deliveryFee}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label" style="font-weight: 700; font-size: 1.1rem;">Order Total</span>
+                        <span class="detail-value" style="font-weight: 700; font-size: 1.1rem; color: var(--accent-green);">₹${orderData.total.toLocaleString()}</span>
+                    </div>
+                    <div class="detail-row">
+                        <span class="detail-label">Payment Status</span>
+                        <span class="detail-value" style="color: var(--accent-green);">✓ Payment Successful</span>
+                    </div>
+                </div>
+
+                <div class="confirmation-buttons">
+                    <button class="btn btn-primary" onclick="navigateTo('products')">Continue Shopping</button>
+                    <button class="btn btn-secondary" onclick="navigateTo('contact')">Contact Support</button>
+                </div>
+
+                <div class="confirmation-links">
+                    <a onclick="navigateTo('home')">Back to Home</a>
+                    <a onclick="navigateTo('contact')">Track Your Order</a>
+                </div>
+            `;
+        }
+
+        async function handleEnquiry(event) {
+            event.preventDefault();
+
+            const name = document.getElementById('enquiryName').value.trim();
+            const email = document.getElementById('enquiryEmail').value.trim();
+            const phone = document.getElementById('enquiryPhone').value.trim();
+            const category = document.getElementById('enquiryCategory').value;
+            const quantity = document.getElementById('enquiryQuantity').value.trim();
+            const location = document.getElementById('enquiryLocation').value.trim();
+            const message = document.getElementById('enquiryMessage').value.trim();
+
+            let valid = true;
+
+            // Clear errors
+            document.querySelectorAll('.error-message').forEach(el => el.textContent = '');
+
+            // Validate
+            if (!name) {
+                document.getElementById('enquiryNameError').textContent = 'Name is required';
+                valid = false;
+            }
+
+            if (!validateEmail(email)) {
+                document.getElementById('enquiryEmailError').textContent = 'Please enter a valid email';
+                valid = false;
+            }
+
+            if (!validatePhone(phone)) {
+                document.getElementById('enquiryPhoneError').textContent = 'Please enter a valid 10-digit Indian mobile number';
+                valid = false;
+            }
+
+            if (!category) {
+                document.getElementById('enquiryCategoryError').textContent = 'Please select a category';
+                valid = false;
+            }
+
+            if (!quantity) {
+                document.getElementById('enquiryQuantityError').textContent = 'Quantity is required';
+                valid = false;
+            }
+
+            if (!location) {
+                document.getElementById('enquiryLocationError').textContent = 'Location is required';
+                valid = false;
+            }
+
+            if (!valid) return;
+
+            const btn = document.getElementById('enquirySubmitBtn');
+            btn.disabled = true;
+            btn.textContent = 'Submitting...';
+
+            try {
+                const url = APPS_SCRIPT_URL + '?' + new URLSearchParams({
+                    type: 'enquiry',
+                    name: name,
+                    email: email,
+                    phone: phone,
+                    category: category,
+                    quantity: quantity,
+                    location: location,
+                    message: message
+                });
+
+                await fetch(url, { method: 'GET', mode: 'no-cors' });
+
+                document.getElementById('enquiryForm').reset();
+                document.getElementById('enquirySuccess').style.display = 'block';
+                setTimeout(() => {
+                    document.getElementById('enquirySuccess').style.display = 'none';
+                }, 5000);
+            } catch (error) {
+                console.error('Error:', error);
+                showNotification('Error submitting enquiry');
+            } finally {
+                btn.disabled = false;
+                btn.textContent = 'Send Enquiry';
+            }
+        }
+
+        // Utility Functions
+        function openGoogleMaps() {
+            const lat = '11.981243';
+            const lng = '79.686278';
+            window.open(`https://maps.google.com/?q=${lat},${lng}`, '_blank');
+        }
+
+        function callPhone(number) {
+            window.location.href = `tel:${number}`;
+        }
+
+        function emailUs(email) {
+            window.location.href = `mailto:${email}`;
+        }
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', () => {
+            loadCart();
+            renderProducts('all');
+        });
+
+        // Close mobile nav when clicking a link
+        document.querySelectorAll('#mobileNav a').forEach(link => {
+            link.addEventListener('click', () => {
+                document.getElementById('mobileNav').style.display = 'none';
+            });
+        });
+    </script>
+</body>
+</html>
